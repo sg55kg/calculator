@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+#calc-body {
+    width: 400px;
+    height: 650px;
+    border:1px solid black;
+    display:flexbox;
+    margin: auto;
+}
+
+#result-bar {
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    background: red;
+}
+
+#keypad {
+    background: blue;
+    width: 100%;
+    height: 100%;
+    
+    
+}
+
+#keypad > button {
+    height:1fr;
+    width:1fr;
+}
