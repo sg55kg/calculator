@@ -6,7 +6,7 @@ h1 {
     width: 400px;
     height: auto;
     border:1px solid black;
-    border-radius: 5px;
+    border-radius: 4px;
     margin: auto;
     max-height: 650px;
     max-width: 400px;
@@ -52,7 +52,7 @@ h1 {
 }
 
 #keypad {
-    background: blue;
+    background: black;
     width:100%;
     height:auto;
     display: grid;
@@ -63,6 +63,8 @@ h1 {
 #keypad > button {
     grid-row:span 1;
     border: 1px solid black;
+    border-radius: 3px;
+    font-size: 24px;
 }
 
 #keypad > button:hover {
@@ -79,9 +81,13 @@ h1 {
 }
 
 .operand:hover {
-    background-color: rgb(194, 127, 3) !important;
+    background-color: rgb(223, 147, 7) !important;
 }
 
 .clear {
     background-color: darkgray;
+}
+
+.clear:hover {
+    background-color: rgb(128, 126, 126) !important;
 }
