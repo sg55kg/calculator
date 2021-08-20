@@ -22,6 +22,37 @@
 
         operate: function(val1, val2, operator) {
             //make seperate functions for add, subtract, multiply, divide, that take 2 numbers and an operator
+            //buttons need event listeners
+            switch(operator) {
+                case '+':
+                    sum(val1, val2);
+                    break;
+                case '-':
+                    subtract(val1, val2);
+                    break;
+                case 'x':
+                    multiply(val1, val2);
+                    break;
+                case '÷':
+                    divide(val1, val2);
+                    break;
+            }
+
+            function sum(a, b) {
+                return a + b;
+            }
+
+            function subtract(a, b) {
+                return a - b;
+            }
+
+            function multiply(a, b) {
+                return a * b;
+            }
+
+            function divide(a, b) {
+                return a / b;
+            }
         },
 
         clear: function() {
