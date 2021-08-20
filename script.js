@@ -2,7 +2,6 @@
     let calculator = {
         init: function() {
             this.cacheDom();
-            this.clear();
         },
 
         cacheDom: function() {
@@ -38,21 +37,6 @@
                     break;
             }
 
-            function sum(a, b) {
-                return a + b;
-            }
-
-            function subtract(a, b) {
-                return a - b;
-            }
-
-            function multiply(a, b) {
-                return a * b;
-            }
-
-            function divide(a, b) {
-                return a / b;
-            }
         },
 
         clear: function() {
@@ -64,3 +48,23 @@
     calculator.init();
     
 // })();
+
+function sum(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if(b == 0) {
+        alert('Error');
+    } else {
+        return a / b;
+    }
+}
