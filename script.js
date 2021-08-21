@@ -7,6 +7,7 @@
 
 
         cacheDom: function() {
+
             this.numberBtn = document.querySelectorAll('.num');
             this.decimalBtn = document.getElementById('decimal');
             this.operandBtn = document.querySelectorAll('.operand');
@@ -17,7 +18,6 @@
             this.previousResult = document.getElementById('previous-result');
             this.currentResultText = document.querySelector('.display-current');
             this.previousResultText = document.querySelector('.display-prev');
-            //currentResultText.innerText = '30'; //currentResult displays w/out formatting, this keeps padding etc
 
         },
 
@@ -37,7 +37,10 @@
             }); 
 
             this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
-            this.decimalBtn.addEventListener('click', this.testFunc.bind(this));
+
+            //it only inserts once which is good, but I'm not sure why. Might be because I didn't do () => {} like the others
+            this.decimalBtn.addEventListener('click', this.addNumbersToDisplay(this.decimalBtn.innerText));
+
             this.clearBtn.addEventListener('click', this.clear.bind(this));
 
         },
@@ -55,7 +58,7 @@
             //buttons need event listeners
             switch(operator) {
                 case '+':
-                    sum(val1, val2);
+                    sum(val1, val2); //maybe result = sum(val1, val2), and then something like addNumbersToDisplay(result)?
                     break;
                 case '-':
                     subtract(val1, val2);
@@ -86,12 +89,17 @@
             this.currentResultText.innerText = '';
             this.previousResultText.innerText = '';
         },
+
+        del: function() {
+            //splice only the last value on currentResultText on each click
+        }
     }
     calculator.init();
     
  })();
 
 
+//global basic math functions
 function sum(a, b) {
     return a + b;
 }
