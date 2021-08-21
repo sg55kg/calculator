@@ -30,9 +30,11 @@
                 })
             });         
 
-            for(let i = 0; i < this.operandBtn.length; i++) {
-                this.operandBtn[i].addEventListener('click', this.testFunc.bind(this));
-            } //need to rework this with a foreach loop like the number buttons
+            this.operandBtn.forEach(button => {
+                button.addEventListener('click', () => {
+                    this.addNumbersToDisplay(button.innerText); //temporary just to make sure the buttons work
+                })
+            }); 
 
             this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
             this.decimalBtn.addEventListener('click', this.testFunc.bind(this));
@@ -64,7 +66,7 @@
                 case '÷':
                     divide(val1, val2);
                     break;
-                case '%':
+                case '%': //might move to it's own % button function so it fires instantly like iphone calculator
                     divide(val1, 100);
                     break;
             }
@@ -73,6 +75,10 @@
 
         addNumbersToDisplay: function(value) {
             this.currentResultText.innerText += `${value}`;
+        },
+
+        addOperandToDisplay: function(value) {
+            //needs to just add the operand once. Might be an unnecessary function
         },
 
 
