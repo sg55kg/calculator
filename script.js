@@ -10,7 +10,7 @@
 
             this.numberBtn = document.querySelectorAll('.num');
             this.decimalBtn = document.getElementById('decimal');
-            this.operandBtn = document.querySelectorAll('.operand');
+            this.operatorBtn = document.querySelectorAll('.operand');
             this.clearBtn = document.getElementById('clear');
             this.deleteBtn = document.getElementById('del');
             this.equalsBtn = document.querySelector('.equals');
@@ -30,7 +30,7 @@
                 })
             });         
 
-            this.operandBtn.forEach(button => {
+            this.operatorBtn.forEach(button => {
                 button.addEventListener('click', () => {
                     this.addNumbersToDisplay(button.innerText); //temporary just to make sure the buttons work
                 })
@@ -38,12 +38,13 @@
 
             this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
 
-            //works, but can be used more than once. Needs to use the addOperand function or it's own
             this.decimalBtn.addEventListener('click', () => {
                 this.addNumbersToDisplay(this.decimalBtn.innerText);
             });
 
             this.clearBtn.addEventListener('click', this.clear.bind(this));
+
+            this.deleteBtn.addEventListener('click', this.del.bind(this));
 
         },
 
@@ -79,11 +80,14 @@
 
 
         addNumbersToDisplay: function(value) {
+            if(this.currentResultText.innerText.includes('.') && value == '.') {
+                return;
+            }
             this.currentResultText.innerText += `${value}`;
         },
 
-        addOperandToDisplay: function(value) {
-            //needs to just add the operand once. Might be an unnecessary function
+        addOperatorToDisplay: function(value) {
+            //needs to just add the operator once. Might be an unnecessary function
         },
 
 
@@ -93,7 +97,10 @@
         },
 
         del: function() {
-            //splice only the last value on currentResultText on each click
+            let tempVar = this.currentResultText.innerText.toString();
+            tempVar = tempVar.slice(0, -1);
+            this.currentResultText.innerText = tempVar;
+            //there might have been a simpler way to do this, but it works
         }
     }
     calculator.init();
