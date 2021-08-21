@@ -5,8 +5,9 @@
             this.bindEvents();
         },
 
+
         cacheDom: function() {
-            this.numberBtn = document.getElementsByClassName('num');
+            this.numberBtn = document.querySelectorAll('.num');
             this.decimalBtn = document.getElementById('decimal');
             this.operandBtn = document.querySelectorAll('.operand');
             this.clearBtn = document.getElementById('clear');
@@ -15,31 +16,37 @@
             this.currentResult = document.getElementById('current-result');
             this.previousResult = document.getElementById('previous-result');
             this.currentResultText = document.querySelector('.display-current');
-            this.previousResultText = document.querySelector('.display-previous');
+            this.previousResultText = document.querySelector('.display-prev');
             //currentResultText.innerText = '30'; //currentResult displays w/out formatting, this keeps padding etc
 
         },
 
+
         bindEvents: function() {
 
-            for(let i = 0; i < this.numberBtn.length; i++) {
-                this.numberBtn[i].addEventListener('click', this.addNumbersToDisplay.bind(this));
-                //getElementsByClassName returns an empty array apparently, so you have to loop through them
-            }
+            this.numberBtn.forEach(button => {
+                button.addEventListener('click', () => {
+                    this.addNumbersToDisplay(button.innerText);
+                })
+            });         
 
             for(let i = 0; i < this.operandBtn.length; i++) {
                 this.operandBtn[i].addEventListener('click', this.testFunc.bind(this));
-            }
+            } //need to rework this with a foreach loop like the number buttons
 
             this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
             this.decimalBtn.addEventListener('click', this.testFunc.bind(this));
+            this.clearBtn.addEventListener('click', this.clear.bind(this));
 
         },
+
 
         testFunc: function() {
             this.currentResultText.innerText = '100000000';
+            this.previousResultText.innerText = '500';
             
         },
+
 
         operate: function(val1, val2, operator) {
             //make seperate functions for add, subtract, multiply, divide, that take 2 numbers and an operator
@@ -57,27 +64,27 @@
                 case '÷':
                     divide(val1, val2);
                     break;
+                case '%':
+                    divide(val1, 100);
+                    break;
             }
         },
 
-        addNumbersToDisplay: function() {
-            this.numberBtn.forEach(button => {
-                let numberBtnValue = button.value;
-            }); //this doesn't work. Potentially could use for... in and/or item.id
 
-            this.currentResultText.innerText = toString(numberBtnValue); //logs undefined object, needs to get the specific
-            //number button, because I think it's reading all of them and returning an array or something.
+        addNumbersToDisplay: function(value) {
+            this.currentResultText.innerText += `${value}`;
         },
 
+
         clear: function() {
-            // this.currentResultText.innerText = ''; //this variable remains undefined if called from here.
-            // this.previousResultText.innerText = '';
-            console.log('clear');
+            this.currentResultText.innerText = '';
+            this.previousResultText.innerText = '';
         },
     }
     calculator.init();
     
  })();
+
 
 function sum(a, b) {
     return a + b;
