@@ -1,5 +1,9 @@
 # calculator
 
+Update(8/21):
+
+The clear and delete buttons work, and the decimal button now works properly and can only be used once. I attempted to make the '%' button divide the current number by 100 like the iphone calculator, but so far no luck on that. There's still a ways to go, but I could see this getting finished in the next day or two if things go right.
+
 Update(8/20):
 
 Got the cacheDom function working finally, and experimenting with a test function to make sure I can get all of the buttons to do something. Now I'm working on a function to add each number to the result bar, which is challenging. The code is a mess of comments for possible solutions and notes right now, but progress is being made.

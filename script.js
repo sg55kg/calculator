@@ -11,6 +11,7 @@
             this.numberBtn = document.querySelectorAll('.num');
             this.decimalBtn = document.getElementById('decimal');
             this.operatorBtn = document.querySelectorAll('.operand');
+            this.percentageBtn = document.getElementById('percentBtn');
             this.clearBtn = document.getElementById('clear');
             this.deleteBtn = document.getElementById('del');
             this.equalsBtn = document.querySelector('.equals');
@@ -36,11 +37,16 @@
                 })
             }); 
 
-            this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
+            this.equalsBtn.addEventListener('click', this.testFunc.bind(this)); //equals needs to trigger the operate function
+            //first there needs to be variables saved to put in as arguments for val1, val2, operator. Probably need to include
+            //a part in addNumbersToDisplay (or make a new function and add it to these buttons) that saves the values in those
+            //variables, so when equalsBtn is clicked the operate function can just fire.
 
             this.decimalBtn.addEventListener('click', () => {
                 this.addNumbersToDisplay(this.decimalBtn.innerText);
             });
+
+            this.percentageBtn.addEventListener('click', this.convertPercentage.bind(this)); //does not work
 
             this.clearBtn.addEventListener('click', this.clear.bind(this));
 
@@ -75,6 +81,16 @@
                 case '%': //might move to it's own % button function so it fires instantly like iphone calculator
                     divide(val1, 100);
                     break;
+            }
+        },
+
+
+        convertPercentage: function() {
+            let num = this.currentResultText.innerText;
+            if(num != '') {
+                return num = num / 100;
+            } else {
+                return;
             }
         },
 
