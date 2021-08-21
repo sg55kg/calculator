@@ -38,8 +38,10 @@
 
             this.equalsBtn.addEventListener('click', this.testFunc.bind(this));
 
-            //it only inserts once which is good, but I'm not sure why. Might be because I didn't do () => {} like the others
-            this.decimalBtn.addEventListener('click', this.addNumbersToDisplay(this.decimalBtn.innerText));
+            //works, but can be used more than once. Needs to use the addOperand function or it's own
+            this.decimalBtn.addEventListener('click', () => {
+                this.addNumbersToDisplay(this.decimalBtn.innerText);
+            });
 
             this.clearBtn.addEventListener('click', this.clear.bind(this));
 
