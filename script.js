@@ -1,4 +1,4 @@
- //(function() {
+
     let calculator = {
         init: function() {
             this.cacheDom();
@@ -7,7 +7,6 @@
 
 
         cacheDom: function() {
-
             this.numberBtn = document.querySelectorAll('.num');
             this.decimalBtn = document.getElementById('decimal');
             this.operatorBtn = document.querySelectorAll('.operand');
@@ -15,11 +14,8 @@
             this.clearBtn = document.getElementById('clear');
             this.deleteBtn = document.getElementById('del');
             this.equalsBtn = document.querySelector('.equals');
-            this.currentResult = document.getElementById('current-result');
-            this.previousResult = document.getElementById('previous-result');
             this.currentResultText = document.querySelector('.display-current');
             this.previousResultText = document.querySelector('.display-prev');
-
         },
 
 
@@ -50,7 +46,6 @@
             this.clearBtn.addEventListener('click', this.clear.bind(this));
 
             this.deleteBtn.addEventListener('click', this.del.bind(this));
-
         },
 
 
@@ -71,24 +66,24 @@
 
             switch(operator) {
                 case '+':
+                    this.clear();
                     this.result = sum(val1, val2);
                     this.currentResultText.innerText = `${this.result}`;
-                    this.currentOperator = '';
                     break;
                 case '-':
+                    this.clear();
                     this.result = subtract(val1, val2);
                     this.currentResultText.innerText = `${this.result}`;
-                    this.currentOperator = '';
                     break;
                 case 'x':
+                    this.clear();
                     this.result = multiply(val1, val2);
                     this.currentResultText.innerText = `${this.result}`;
-                    this.currentOperator = '';
                     break;
                 case '÷':
+                    this.clear();
                     this.result = divide(val1, val2);
                     this.currentResultText.innerText = `${this.result}`;
-                    this.currentOperator = '';
                     break;
             }
         },
@@ -98,16 +93,17 @@
             if(this.afterOperator.includes('.') && value == '.') return;
 
             if(this.result != null) {
+                this.clear();
                 this.previousResultText.innerText = `${this.result}`;
                 this.result = null;
                 this.currentResultText.innerText = `${value}`;
+                this.afterOperator += value;
                 return;
             }
             
             this.currentResultText.innerText += `${value}`;
             this.afterOperator += value; //test, works
-            console.log(this.afterOperator);
-            
+            console.log(this.afterOperator);   
         },
 
 
@@ -118,7 +114,6 @@
             this.beforeOperator = this.afterOperator;
             this.afterOperator = '';
             this.currentResultText.innerText += `${value}`;
-            console.log(this.currentOperator + " op added");
         },
 
 
@@ -140,6 +135,8 @@
             this.previousResultText.innerText = '';
             this.afterOperator = '';
             this.currentOperator = '';
+            this.beforeOperator = '';
+            return;
         },
 
 
@@ -150,13 +147,12 @@
 
             this.afterOperator = this.afterOperator.toString().slice(0, -1);
             this.currentResultText.innerText = `${this.afterOperator}`;
-            console.log(this.afterOperator);
-            
+            console.log(this.afterOperator);           
         }
     }
-    calculator.init();
-    
- //})();
+
+calculator.init();
+
 
 
 //global basic math functions

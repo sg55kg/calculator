@@ -1,5 +1,9 @@
 # calculator
 
+Third update 8/21:
+
+I just finished working out a lot of the breaking bugs. There's still some minor issues to work on, and I'm still debating if I want to go for a more unique style, but I think for now this project is good enough to submit!
+
 Second Update 8/21:
 
 Got it 95% done!... but it's very easy to break it after one calculation. I'm going to go through and clean everything up so it doesn't have all of these bugs, and then it will be (functionally) done. Then I might go and give it a little more unique color theme in CSS instead of the basic iPhone calculator look that I originally went for.
