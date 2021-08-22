@@ -1,4 +1,4 @@
- (function() {
+ //(function() {
     let calculator = {
         init: function() {
             this.cacheDom();
@@ -33,20 +33,19 @@
 
             this.operatorBtn.forEach(button => {
                 button.addEventListener('click', () => {
-                    this.addNumbersToDisplay(button.innerText); //temporary just to make sure the buttons work
+                    this.addOperatorToDisplay(button.innerText);
                 })
             }); 
 
-            this.equalsBtn.addEventListener('click', this.testFunc.bind(this)); //equals needs to trigger the operate function
-            //first there needs to be variables saved to put in as arguments for val1, val2, operator. Probably need to include
-            //a part in addNumbersToDisplay (or make a new function and add it to these buttons) that saves the values in those
-            //variables, so when equalsBtn is clicked the operate function can just fire.
+            this.equalsBtn.addEventListener('click', () => {
+                this.operate(parseFloat(this.beforeOperator), parseFloat(this.afterOperator), this.currentOperator);
+            });
 
             this.decimalBtn.addEventListener('click', () => {
                 this.addNumbersToDisplay(this.decimalBtn.innerText);
             });
 
-            this.percentageBtn.addEventListener('click', this.convertPercentage.bind(this)); //does not work
+            this.percentageBtn.addEventListener('click', this.convertPercentage.bind(this));
 
             this.clearBtn.addEventListener('click', this.clear.bind(this));
 
@@ -55,73 +54,109 @@
         },
 
 
-        testFunc: function() {
-            this.currentResultText.innerText = '100000000';
-            this.previousResultText.innerText = '500';
-            
-        },
+        result: null,
+
+
+        afterOperator: '',
+
+
+        beforeOperator: '',
+
+
+        currentOperator: '',
 
 
         operate: function(val1, val2, operator) {
-            //make seperate functions for add, subtract, multiply, divide, that take 2 numbers and an operator
-            //buttons need event listeners
+            if(val1 == '' || operator == '') return;
+
             switch(operator) {
                 case '+':
-                    sum(val1, val2); //maybe result = sum(val1, val2), and then something like addNumbersToDisplay(result)?
+                    this.result = sum(val1, val2);
+                    this.currentResultText.innerText = `${this.result}`;
+                    this.currentOperator = '';
                     break;
                 case '-':
-                    subtract(val1, val2);
+                    this.result = subtract(val1, val2);
+                    this.currentResultText.innerText = `${this.result}`;
+                    this.currentOperator = '';
                     break;
                 case 'x':
-                    multiply(val1, val2);
+                    this.result = multiply(val1, val2);
+                    this.currentResultText.innerText = `${this.result}`;
+                    this.currentOperator = '';
                     break;
                 case '÷':
-                    divide(val1, val2);
-                    break;
-                case '%': //might move to it's own % button function so it fires instantly like iphone calculator
-                    divide(val1, 100);
+                    this.result = divide(val1, val2);
+                    this.currentResultText.innerText = `${this.result}`;
+                    this.currentOperator = '';
                     break;
             }
         },
 
 
+        addNumbersToDisplay: function(value) {
+            if(this.afterOperator.includes('.') && value == '.') return;
+
+            if(this.result != null) {
+                this.previousResultText.innerText = `${this.result}`;
+                this.result = null;
+                this.currentResultText.innerText = `${value}`;
+                return;
+            }
+            
+            this.currentResultText.innerText += `${value}`;
+            this.afterOperator += value; //test, works
+            console.log(this.afterOperator);
+            
+        },
+
+
+        addOperatorToDisplay: function(value) {
+            if(this.currentOperator != '') return;
+
+            this.currentOperator = value;
+            this.beforeOperator = this.afterOperator;
+            this.afterOperator = '';
+            this.currentResultText.innerText += `${value}`;
+            console.log(this.currentOperator + " op added");
+        },
+
+
         convertPercentage: function() {
-            let num = this.currentResultText.innerText;
+            let num = this.afterOperator;
             if(num != '') {
-                return num = num / 100;
+                num = num / 100;
+                this.currentResultText.innerText = `${num}`;
+                this.afterOperator = num;
+                console.log(this.afterOperator);
             } else {
                 return;
             }
         },
 
 
-        addNumbersToDisplay: function(value) {
-            if(this.currentResultText.innerText.includes('.') && value == '.') {
-                return;
-            }
-            this.currentResultText.innerText += `${value}`;
-        },
-
-        addOperatorToDisplay: function(value) {
-            //needs to just add the operator once. Might be an unnecessary function
-        },
-
-
         clear: function() {
             this.currentResultText.innerText = '';
             this.previousResultText.innerText = '';
+            this.afterOperator = '';
+            this.currentOperator = '';
         },
 
+
         del: function() {
-            let tempVar = this.currentResultText.innerText.toString();
-            tempVar = tempVar.slice(0, -1);
-            this.currentResultText.innerText = tempVar;
-            //there might have been a simpler way to do this, but it works
+            let tempVar = this.currentResultText.innerText.toString();            
+            if(tempVar == '' || this.afterOperator == '') return;
+
+
+            this.afterOperator = this.afterOperator.toString().slice(0, -1);
+            this.currentResultText.innerText = `${this.afterOperator}`;
+            console.log(this.afterOperator);
+            
         }
     }
     calculator.init();
     
- })();
+ //})();
 
 
 //global basic math functions
@@ -139,7 +174,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if(b == 0) {
-        alert('Error');
+        return calculator.currentResultText.innerText = 'Error';
     } else {
         return a / b;
     }

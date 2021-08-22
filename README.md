@@ -1,5 +1,9 @@
 # calculator
 
+Second Update 8/21:
+
+Got it 95% done!... but it's very easy to break it after one calculation. I'm going to go through and clean everything up so it doesn't have all of these bugs, and then it will be (functionally) done. Then I might go and give it a little more unique color theme in CSS instead of the basic iPhone calculator look that I originally went for.
+
 Update(8/21):
 
 The clear and delete buttons work, and the decimal button now works properly and can only be used once. I attempted to make the '%' button divide the current number by 100 like the iphone calculator, but so far no luck on that. There's still a ways to go, but I could see this getting finished in the next day or two if things go right.
